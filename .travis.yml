@@ -19,4 +19,7 @@ before_install:
 script:
   - go test
   - sudo docker ps -a
-  - sudo docker run -t --rm manziman/robot-framework-xvfb bash -c "curl https://raw.githubusercontent.com/manziman/dockercistack/master/robotfiles/go/go.robot >> /opt/robotframework/tests/go.robot; robot -d /opt/robotframework/reports/ /opt/robotframework/tests/"
+  - sudo docker run -t --rm --network test-go manziman/robot-framework-xvfb bash -c "curl https://raw.githubusercontent.com/manziman/dockercistack/master/robotfiles/go/go.robot >> /opt/robotframework/tests/go.robot; robot -d /opt/robotframework/reports/ /opt/robotframework/tests/"
+
+notifications:
+  slack: ramrod-project:GDF82rRYDg3KSekrT3GA24q0
