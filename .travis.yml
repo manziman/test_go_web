@@ -11,14 +11,13 @@ services:
 before_install:
   - sudo mkdir -p dockerfiles/{go,robot}
   - sudo touch dockerfiles/{go,robot}/Dockerfile
-  - sudo mkdir -p robot/{tests,reports}
+  - sudo mkdir {tests,reports}
+  - suco curl https://raw.githubusercontent.com/manziman/dockercistack/master/robotfiles/go/go.robot >> tests/go.robot
   - sudo curl https://raw.githubusercontent.com/manziman/test_go_web/master/dockerfile/Dockerfile | sudo docker build -t go-server -f - .
   - sudo docker network create --attachable test-go
   - sudo docker run -d --rm --name go-server -p 9090:9090 --network test-go go-server
-  - sudo docker ps -a
 
 script:
   - go test
   - sudo docker ps -a
-  - sudo curl https://raw.githubusercontent.com/manziman/dockercistack/master/dockerfiles/robot-server/Dockerfile | sudo docker build -t robot-server -f - .
-  - sudo docker run -t --rm --name robot-server --network test-go -v robot/reports:/opt/robotframework/reports -v robot/tests:/opt/robotframework/tests robot-server -d /opt/robotframework/reports/ /opt/robotframework/tests/
+  - sudo docker run -t --rm --name robot-server --network test-go -v reports:/opt/robotframework/reports -v tests:/opt/robotframework/tests manziman/robot-framework-xvfb -d /opt/robotframework/reports/ /opt/robotframework/tests/
