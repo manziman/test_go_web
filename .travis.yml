@@ -12,7 +12,6 @@ before_install:
   - sudo mkdir -p dockerfiles/{go,robot}
   - sudo touch dockerfiles/{go,robot}/Dockerfile
   - sudo mkdir {tests,reports}
-  - sudo curl https://raw.githubusercontent.com/manziman/dockercistack/master/robotfiles/go/go.robot >> tests/go.robot
   - sudo curl https://raw.githubusercontent.com/manziman/test_go_web/master/dockerfile/Dockerfile | sudo docker build -t go-server -f - .
   - sudo docker network create --attachable test-go
   - sudo docker run -d --rm --name go-server -p 9090:9090 --network test-go go-server
