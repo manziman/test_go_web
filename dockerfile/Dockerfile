@@ -2,7 +2,7 @@ FROM golang
 
 WORKDIR /go/src
 
-RUN go get github.com/manziman/testWeb
+RUN go get github.com/manziman/test_go_web
 
 COPY . .
 
