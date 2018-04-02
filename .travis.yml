@@ -9,9 +9,6 @@ services:
   - docker
 
 before_install:
-  - sudo mkdir -p dockerfiles/{go,robot}
-  - sudo touch dockerfiles/{go,robot}/Dockerfile
-  - sudo mkdir {tests,reports}
   - sudo curl https://raw.githubusercontent.com/manziman/test_go_web/master/dockerfile/Dockerfile | sudo docker build -t go-server -f - .
   - sudo docker network create --attachable test-go
   - sudo docker run -d --rm --name go-server -p 9090:9090 --network test-go go-server
@@ -22,4 +19,4 @@ script:
   - sudo docker run -t --rm --network test-go manziman/robot-framework-xvfb bash -c "curl https://raw.githubusercontent.com/manziman/dockercistack/master/robotfiles/go/go.robot >> /opt/robotframework/tests/go.robot; robot -d /opt/robotframework/reports/ /opt/robotframework/tests/"
 
 notifications:
-  slack: ramrod-project:GDF82rRYDg3KSekrT3GA24q0
+  slack: ramrod-project:GDF82rRYDg3KSekrT3GA24qO
