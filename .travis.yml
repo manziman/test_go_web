@@ -20,4 +20,4 @@ before_install:
 script:
   - go test
   - sudo docker ps -a
-  - sudo docker run -t --rm --name robot-server --network test-go -v reports:/opt/robotframework/reports -v tests:/opt/robotframework/tests manziman/robot-framework-xvfb -d /opt/robotframework/reports/ /opt/robotframework/tests/
+  - sudo docker run -t --rm manziman/robot-framework-xvfb bash -c "curl https://raw.githubusercontent.com/manziman/dockercistack/master/robotfiles/go/go.robot >> /opt/robotframework/tests/go.robot; robot -d /opt/robotframework/reports/ /opt/robotframework/tests/"
