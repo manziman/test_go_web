@@ -2,13 +2,13 @@ FROM golang
 
 WORKDIR /go/src
 
-RUN go get https://github.com/manziman/testWeb.git
+RUN go get github.com/manziman/testWeb
 
 COPY . .
 
-RUN go install testWeb
+RUN go install github.com/manziman/test_go_web
 
 EXPOSE 9090
 
 WORKDIR /go/bin
-CMD ["testWeb"]
+CMD ["test_go_web"]
