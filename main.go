@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
-	"log"
 )
 
-func errorHandler (w http.ResponseWriter, r *http.Request, status int) {
+func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
 	w.WriteHeader(status)
 
@@ -18,12 +18,11 @@ func errorHandler (w http.ResponseWriter, r *http.Request, status int) {
 
 func ReplyHello(w http.ResponseWriter, r *http.Request) {
 
-	r.ParseForm()  // parse arguments, you have to call this by yourself
+	r.ParseForm() // parse arguments, you have to call this by yourself
 	/*fmt.Println(r.Form)  // print form information in server side
 	fmt.Println("path", r.URL.Path)
 	fmt.Println("scheme", r.URL.Scheme)
 	fmt.Println(r.Form["url_long"])*/
-
 	if r.URL.Path != "/" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -39,7 +38,7 @@ func ReplyHello(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	http.HandleFunc("/", ReplyHello) // set router
+	http.HandleFunc("/", ReplyHello)         // set router
 	err := http.ListenAndServe(":9090", nil) // set listen port
 
 	if err != nil {
